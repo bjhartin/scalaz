@@ -13,7 +13,7 @@ class ApplicativeSpec extends Specification {
     "Functor's map can only handle single-argument functions" >> {
 
       /*
-         This makes sense, because 'map' is essentially mapping
+         Thi makes sense, because 'map' is essentially mapping
          the range of one function into the domain of another.
 
          But what if we want to map the ranges of two functions
@@ -112,7 +112,14 @@ class ApplicativeSpec extends Specification {
 
          1.some *> List(1) -- doesn't compile
 
+         Hmmm.... Does 1.some, together with >* and Option[Int] form a monoid?
+         And List(1) with >* and List[Int]?
+         Let's check associativity:
+
          */
+
+        (2.some *> 3.some) *> 4.some must_== 2.some *> (3.some *> 4.some)
+        (List(2,3) *> List(1)) *> List(3,4) must_== List(2,3) *> (List(1) *> List(3,4))
       }
     }
 
